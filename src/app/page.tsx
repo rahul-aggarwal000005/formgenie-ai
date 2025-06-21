@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen px-6 py-12 bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-center">
+    <main className="flex flex-col items-center justify-center min-h-screen px-6 bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-center">
       <h1 className="text-6xl font-bold text-indigo-900 mb-4 tracking-tight">
         🧞‍♂️ FormGenie
       </h1>
@@ -17,10 +17,6 @@ export default function Home() {
       >
         Get Started
       </Link>
-
-      <footer className="absolute bottom-6 text-indigo-500 text-sm">
-        © {new Date().getFullYear()} Rahul Aggarwal — Built with ❤️ & OpenAI
-      </footer>
     </main>
   );
 }

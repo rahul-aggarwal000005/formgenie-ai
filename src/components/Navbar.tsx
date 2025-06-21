@@ -37,7 +37,6 @@ export function Navbar() {
 
   const isFormPage = pathname === "/form";
 
-  console.log({ isFormPage, pathname });
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto flex items-center justify-between p-4">

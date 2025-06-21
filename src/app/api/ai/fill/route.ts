@@ -3,7 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { openai } from "@/lib/openai";
 
 export async function POST(req: NextRequest) {
-  const { formSchema, userContext } = await req.json();
+  const {
+    formSchema,
+    userContext: _userContext,
+    useRealData,
+  } = await req.json();
+
+  const userContext = useRealData
+    ? _userContext
+    : _userContext ??
+      "Generate realistic fake values for a dummy employee filling this form.";
 
   const prompt = `
 You are an intelligent assistant that fills out workplace forms.
