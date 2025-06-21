@@ -120,3 +120,47 @@
     @apply bg-background text-foreground;
   }
 }
+
+.animated-bg {
+  position: relative;
+  background: linear-gradient(-45deg, #e0e7ff, #f3f4f6, #e0f2fe, #fef3c7);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.animated-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.2);
+  z-index: -1;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, white 30%, transparent 100%);
+  mix-blend-mode: overlay;
+  animation: floatMask 8s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes floatMask {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    transform: scale(1.05) translateY(-10px);
+  }
+}
