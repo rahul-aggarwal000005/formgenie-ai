@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { toast } from "sonner";
 import { SchemaInput } from "./SchemaInput";
 import { UserContextInput } from "./UserContextInput";
 import { ActionButtons } from "./ActionButtons";
+import { LoadingOverlay } from "./LoadingOverlay";
+import { NextResponse } from "next/server";
 
 interface Props {
   result: string;
@@ -16,18 +19,34 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
 
   const handleFillForm = async () => {
     setLoading(true);
-    const res = await fetch("/api/ai/fill", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        formSchema: schema,
-        userContext,
-        useRealData,
-      }),
-    });
-    const data = await res.json();
-    setResult(JSON.stringify(data.filledForm, null, 2));
-    setLoading(false);
+    try {
+      const res = await fetch("/api/ai/fill", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formSchema: schema,
+          userContext,
+          useRealData,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`API responded with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      if (!data.filledForm) {
+        throw new Error("AI did not return filled form.");
+      }
+
+      setResult(JSON.stringify(data.filledForm, null, 2));
+    } catch (err: unknown) {
+      toast.error(
+        err.message ?? "Something went wrong while filling the form."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDownload = () => {
@@ -38,8 +57,10 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
     link.download = "filled-form.json";
     link.click();
   };
+
   return (
-    <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6 mb-6 md:mb-0">
+    <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6 mb-6 md:mb-0 relative">
+      {loading && <LoadingOverlay />}
       <h1 className="text-3xl font-bold text-gray-800 text-center">
         🧾 FormGenie 🧞
       </h1>
