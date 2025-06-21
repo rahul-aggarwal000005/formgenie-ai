@@ -2,7 +2,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   NavigationMenu,
@@ -10,7 +9,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetTrigger,
@@ -28,14 +26,11 @@ import {
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
   const navLinks = [
     { title: "Home", href: "/", icon: HomeIcon },
     { title: "Form", href: "/form", icon: DocumentTextIcon },
   ];
-
-  const isFormPage = pathname === "/form";
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
@@ -66,17 +61,6 @@ export function Navbar() {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-
-          {!isFormPage && (
-            <Button
-              variant="default"
-              className="bg-indigo-600 text-white shadow hover:bg-indigo-700 transition cursor:hover"
-            >
-              <Link href="/form" onClick={() => setOpen(false)}>
-                Get Started
-              </Link>
-            </Button>
-          )}
         </div>
 
         {/* Mobile hamburger - visible <md */}
@@ -106,17 +90,6 @@ export function Navbar() {
                   </div>
                 </Link>
               ))}
-
-              {!isFormPage && (
-                <Button
-                  variant="default"
-                  className="mt-4 w-full bg-indigo-600 text-white shadow hover:bg-indigo-700 transition"
-                >
-                  <Link href="/form" onClick={() => setOpen(false)}>
-                    Get Started
-                  </Link>
-                </Button>
-              )}
             </nav>
 
             <SheetClose asChild>
