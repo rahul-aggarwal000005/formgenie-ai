@@ -96,13 +96,8 @@ export function Navbar() {
 
             <nav className="flex flex-col space-y-4 mt-6">
               {navLinks.map(({ title, href, icon: Icon }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className="text-lg px-3 py-2 rounded-md text-gray-700 hover:text-indigo-600 font-medium"
-                >
-                  <div>
+                <Link key={href} href={href} onClick={() => setOpen(false)}>
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-700 hover:text-indigo-600 font-medium transition">
                     <Icon
                       className="size-5 text-indigo-600"
                       aria-hidden="true"

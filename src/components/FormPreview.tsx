@@ -12,7 +12,7 @@ export function FormPreview({ filledForm }: Props) {
   }
 
   return (
-    <div className="bg-white p-4 rounded-md shadow-md max-w-md mx-auto">
+    <div className="bg-white p-4 rounded-md shadow-md mx-auto w-full w-full max-w-none md:max-w-md">
       <h3 className="text-lg font-semibold mb-4 text-indigo-900">
         Filled Form Preview
       </h3>

@@ -25,12 +25,16 @@ export default function Home() {
             : "items-center justify-center min-h-[60vh]"
         }`}
       >
-        <div className={`flex-1 ${result ? "max-w-none" : "max-w-5xl"}`}>
+        <div
+          className={`flex-1 ${
+            result ? "max-w-none" : "max-w-5xl flex justify-center"
+          }`}
+        >
           <AIFormFiller result={result} setResult={setResult} />
         </div>
 
         {result && parsedResult && (
-          <div className="flex-1 max-w-xl">
+          <div className="flex-1 max-w-none w-full">
             <FormPreview filledForm={parsedResult} />
           </div>
         )}

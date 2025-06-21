@@ -39,7 +39,7 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
     link.click();
   };
   return (
-    <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6">
+    <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6 mb-6 md:mb-0">
       <h1 className="text-3xl font-bold text-gray-800 text-center">
         🧾 FormGenie 🧞
       </h1>
