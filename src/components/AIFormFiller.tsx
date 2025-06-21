@@ -1,32 +1,41 @@
 "use client";
+
+// libs
 import { useState } from "react";
+
+// components
 import { Button } from "@/components/ui/button";
+import { ExportButton } from "./ExportButton";
+
+// context
+import { useFormContext } from "@/app/context/FormContext";
 
 export function AIFormFiller() {
-  const [result, setResult] = useState("");
+  const { formData } = useFormContext();
+  const [filledForm, setFilledForm] = useState<Record<string, string> | null>(
+    null
+  );
 
-  async function handleFill() {
+  const handleFillForm = async () => {
     const res = await fetch("/api/ai/fill", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        formSchema: "Name, Email, Date of Joining, PAN",
-        userContext:
-          "I'm Rahul, joining as a frontend engineer on July 1st. My PAN is available.",
+        formSchema: formData,
+        userContext: "User is an IT professional filling a registration form.",
       }),
     });
-    const json = await res.json();
-    setResult(json.filledForm);
-  }
+    const data = await res.json();
+    try {
+      setFilledForm(data.filledForm);
+    } catch {
+      console.log("something went wrong");
+    }
+  };
 
   return (
-    <div className="space-y-4">
-      <Button onClick={handleFill}>🧠 Auto-Fill Form with AI</Button>
-      {result && (
-        <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto">
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      )}
+    <div className="mt-6 flex flex-col gap-4">
+      <Button onClick={handleFillForm}>Fill Form with AI</Button>
+      {filledForm && <ExportButton data={filledForm} />}
     </div>
   );
 }

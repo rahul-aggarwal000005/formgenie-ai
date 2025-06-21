@@ -1,9 +1,13 @@
 "use client";
-import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { useFormContext } from "@/app/context/FormContext";
 
 export function FormUploader() {
-  const [schema, setSchema] = useState("");
+  const { setFormData, formData } = useFormContext();
+
+  const handleUpload = (json: string) => {
+    setFormData(json);
+  };
 
   return (
     <div className="space-y-2">
@@ -13,8 +17,8 @@ export function FormUploader() {
       <Textarea
         rows={10}
         placeholder="e.g. Name, Email, PAN, Date of Joining..."
-        value={schema}
-        onChange={(e) => setSchema(e.target.value)}
+        value={formData}
+        onChange={(e) => handleUpload(e.target.value)}
       />
     </div>
   );

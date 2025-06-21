@@ -13,7 +13,9 @@ ${formSchema}
 User's context:
 ${userContext}
 
-Please return a filled JSON object with appropriate values and brief justifications (if needed).
+Please return ONLY the filled JSON object with appropriate values.
+Do NOT include any explanations, notes, or markdown formatting.
+Return a valid JSON object ONLY.
 `;
 
   try {
@@ -22,8 +24,22 @@ Please return a filled JSON object with appropriate values and brief justificati
       messages: [{ role: "user", content: prompt }],
     });
 
-    const result = chat.choices[0]?.message?.content;
-    return NextResponse.json({ filledForm: result });
+    let result = chat.choices[0]?.message?.content || "{}";
+
+    // Remove markdown triple backticks if any
+    result = result.trim();
+    if (result.startsWith("```json")) {
+      result = result
+        .replace(/^```json/, "")
+        .replace(/```$/, "")
+        .trim();
+    } else if (result.startsWith("```")) {
+      result = result.replace(/^```/, "").replace(/```$/, "").trim();
+    }
+
+    const filledForm = JSON.parse(result);
+
+    return NextResponse.json({ filledForm });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: "AI fill failed" }, { status: 500 });
