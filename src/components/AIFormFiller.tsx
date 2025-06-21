@@ -4,7 +4,6 @@ import { SchemaInput } from "./SchemaInput";
 import { UserContextInput } from "./UserContextInput";
 import { ActionButtons } from "./ActionButtons";
 import { LoadingOverlay } from "./LoadingOverlay";
-import { NextResponse } from "next/server";
 
 interface Props {
   result: string;
@@ -41,9 +40,11 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
 
       setResult(JSON.stringify(data.filledForm, null, 2));
     } catch (err: unknown) {
-      toast.error(
-        err.message ?? "Something went wrong while filling the form."
-      );
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Something went wrong while filling the form.";
+      toast.error(message);
     } finally {
       setLoading(false);
     }
