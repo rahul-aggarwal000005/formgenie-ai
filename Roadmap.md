@@ -1,17 +1,19 @@
 # 🛣️ Roadmap
 
-[x] Scaffold Next.js 15 app with Tailwind + ShadCN
+- [x] Scaffold Next.js 15 app with Tailwind + ShadCN
 
-[ ] Upload form schema via JSON or manual UI
+- [x] Manual form schema input via textarea
 
-[ ] AI-generated form filling (OpenAI)
+- [x] AI-generated form filling (OpenAI)
 
-[ ] Field-level AI explanations
+- [ ] Upload form schema via JSON file upload
 
-[ ] Export to JSON and PDF
+- [ ] Field-level AI explanations
 
-[ ] SaaS tiered pricing model
+- [ ] Export to JSON and PDF
 
-[ ] Auth integration
+- [ ] SaaS tiered pricing model
 
-[ ] Stripe billing
+- [ ] Auth integration
+
+- [ ] Stripe billing
