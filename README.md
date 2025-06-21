@@ -43,8 +43,9 @@ npm install
 npm run dev
 ```
 
-You’ll need an .env.local with your OpenAI API key:
+You’ll need an .env.local with your OpenAI API key copied from OpenRouter key:
 
 ```bash
 OPENAI_API_KEY=sk-xxxxxxxxxxxxxxx
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
 ```

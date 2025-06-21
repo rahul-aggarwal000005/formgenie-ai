@@ -8,8 +8,11 @@ export function AIFormFiller() {
   async function handleFill() {
     const res = await fetch("/api/ai/fill", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        context: "I'm joining as a software engineer on July 1st.",
+        formSchema: "Name, Email, Date of Joining, PAN",
+        userContext:
+          "I'm Rahul, joining as a frontend engineer on July 1st. My PAN is available.",
       }),
     });
     const json = await res.json();
