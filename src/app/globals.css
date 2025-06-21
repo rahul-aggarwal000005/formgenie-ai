@@ -126,8 +126,7 @@
   background: linear-gradient(-45deg, #e0e7ff, #f3f4f6, #e0f2fe, #fef3c7);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
-  min-height: 100vh;
-  overflow: hidden;
+  min-height: 99vh;
 }
 
 .animated-bg::before {

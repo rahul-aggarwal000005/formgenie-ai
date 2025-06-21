@@ -1,12 +1,16 @@
-import React, { ReactNode } from "react";
-
+import React from "react";
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
+  fullWidth?: boolean;
 }
 
-export function PageWrapper({ children }: Props) {
+export function PageWrapper({ children, fullWidth = false }: Props) {
   return (
-    <main className="min-h-screen px-6 py-12 max-w-5xl mx-auto">
+    <main
+      className={`mx-auto px-6 ${
+        fullWidth ? "max-w-7xl" : "max-w-5xl"
+      } overflow-auto`}
+    >
       {children}
     </main>
   );
