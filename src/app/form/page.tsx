@@ -5,6 +5,7 @@ import { AIFormFiller } from "@/components/AIFormFiller";
 import { FormPreview } from "@/components/FormPreview";
 import { useState } from "react";
 import { FieldValue } from "@/types";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 export default function Home() {
   const [result, setResult] = useState("");
@@ -18,28 +19,30 @@ export default function Home() {
   }
 
   return (
-    <PageWrapper fullWidth={!!result}>
-      <div
-        className={`py-10 flex flex-col md:flex-row md:space-x-10 ${
-          result
-            ? "items-start w-full"
-            : "items-center justify-center min-h-[60vh]"
-        }`}
-      >
+    <ProtectedRoute>
+      <PageWrapper fullWidth={!!result}>
         <div
-          className={`flex-1 ${
-            result ? "max-w-none" : "max-w-5xl flex justify-center"
+          className={`py-10 flex flex-col md:flex-row md:space-x-10 ${
+            result
+              ? "items-start w-full"
+              : "items-center justify-center min-h-[60vh]"
           }`}
         >
-          <AIFormFiller result={result} setResult={setResult} />
-        </div>
-
-        {result && parsedResult && (
-          <div className="flex-1 max-w-none w-full">
-            <FormPreview filledForm={parsedResult} />
+          <div
+            className={`flex-1 ${
+              result ? "max-w-none" : "max-w-5xl flex justify-center"
+            }`}
+          >
+            <AIFormFiller result={result} setResult={setResult} />
           </div>
-        )}
-      </div>
-    </PageWrapper>
+
+          {result && parsedResult && (
+            <div className="flex-1 max-w-none w-full">
+              <FormPreview filledForm={parsedResult} />
+            </div>
+          )}
+        </div>
+      </PageWrapper>
+    </ProtectedRoute>
   );
 }

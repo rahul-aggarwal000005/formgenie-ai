@@ -115,7 +115,9 @@ export function Navbar() {
                     >
                       View Profile
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => signOut()}>
+                    <DropdownMenuItem
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                    >
                       Sign Out
                     </DropdownMenuItem>
                   </DropdownMenuContent>
