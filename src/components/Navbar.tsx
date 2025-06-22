@@ -1,8 +1,9 @@
-// components/Navbar.tsx
 "use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import clsx from "clsx"; // Optional, for cleaner class names
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -26,6 +27,7 @@ import {
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { title: "Home", href: "/", icon: HomeIcon },
@@ -34,13 +36,13 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
+      <div className="w-full mx-auto flex items-center justify-between p-4">
         {/* Logo */}
         <Link href="/" className="text-indigo-700 font-extrabold text-2xl">
           🧞 FormGenie
         </Link>
 
-        {/* Desktop nav - visible md+ */}
+        {/* Desktop nav */}
         <div className="hidden md:flex items-center space-x-8">
           <NavigationMenu>
             <NavigationMenuList>
@@ -48,9 +50,21 @@ export function Navbar() {
                 <NavigationMenuItem key={href}>
                   <NavigationMenuLink asChild>
                     <Link href={href}>
-                      <div className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-700 hover:text-indigo-600 font-medium transition">
+                      <div
+                        className={clsx(
+                          "flex items-center gap-2 px-3 py-2 rounded-md transition font-medium",
+                          pathname === href
+                            ? "text-indigo-700 bg-indigo-50"
+                            : "text-gray-700 hover:text-indigo-600"
+                        )}
+                      >
                         <Icon
-                          className="size-5 text-indigo-600"
+                          className={clsx(
+                            "size-5",
+                            pathname === href
+                              ? "text-indigo-700"
+                              : "text-indigo-600"
+                          )}
                           aria-hidden="true"
                         />
                         {title}
@@ -63,7 +77,7 @@ export function Navbar() {
           </NavigationMenu>
         </div>
 
-        {/* Mobile hamburger - visible <md */}
+        {/* Mobile hamburger */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -81,9 +95,21 @@ export function Navbar() {
             <nav className="flex flex-col space-y-4 mt-6">
               {navLinks.map(({ title, href, icon: Icon }) => (
                 <Link key={href} href={href} onClick={() => setOpen(false)}>
-                  <div className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-700 hover:text-indigo-600 font-medium transition">
+                  <div
+                    className={clsx(
+                      "flex items-center gap-2 px-3 py-2 rounded-md font-medium transition",
+                      pathname === href
+                        ? "text-indigo-700 bg-indigo-50"
+                        : "text-gray-700 hover:text-indigo-600"
+                    )}
+                  >
                     <Icon
-                      className="size-5 text-indigo-600"
+                      className={clsx(
+                        "size-5",
+                        pathname === href
+                          ? "text-indigo-700"
+                          : "text-indigo-600"
+                      )}
                       aria-hidden="true"
                     />
                     {title}

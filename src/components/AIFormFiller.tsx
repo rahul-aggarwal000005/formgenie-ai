@@ -13,7 +13,7 @@ interface Props {
 export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
   const [schema, setSchema] = useState("");
   const [userContext, setUserContext] = useState("");
-  const [useRealData, setUseRealData] = useState(true);
+  const [useRealData, setUseRealData] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleFillForm = async () => {
