@@ -4,6 +4,8 @@ import { UserContextInput } from "./UserContextInput";
 import { ActionButtons } from "./ActionButtons";
 import { LoadingOverlay } from "./LoadingOverlay";
 import { SchemaInputWrapper } from "./SchemaInputWrapper";
+import { jsPDF } from "jspdf";
+import { FieldValue } from "@/types";
 
 interface Props {
   result: string;
@@ -73,6 +75,38 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
     link.click();
   };
 
+  const handleDownloadPDF = () => {
+    if (!result) return;
+
+    try {
+      const doc = new jsPDF();
+      const data = JSON.parse(result) as Record<string, FieldValue>;
+
+      // Extract value from each field
+      const flatData = Object.fromEntries(
+        Object.entries(data).map(([key, val]) => [key, val.value || ""])
+      );
+
+      doc.setFontSize(16);
+      doc.text("Filled Form Data", 10, 10);
+
+      let y = 20;
+      for (const [key, value] of Object.entries(flatData)) {
+        doc.setFontSize(12);
+        doc.text(`${key}: ${value}`, 10, y);
+        y += 10;
+        if (y > 280) {
+          doc.addPage();
+          y = 10;
+        }
+      }
+
+      doc.save("filled-form.pdf");
+    } catch {
+      toast.error("Failed to export PDF");
+    }
+  };
+
   return (
     <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8 space-y-6 mb-6 md:mb-0 relative">
       {loading && <LoadingOverlay />}
@@ -98,6 +132,7 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
         result={result}
         onFill={handleFillForm}
         onDownload={handleDownload}
+        onDownloadPDF={handleDownloadPDF}
       />
     </div>
   );

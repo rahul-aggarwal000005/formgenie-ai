@@ -1,14 +1,10 @@
 "use client";
 
+import { FieldValue } from "@/types";
 import React from "react";
 
-interface FieldData {
-  value: string;
-  explanation: string;
-}
-
 interface Props {
-  filledForm: Record<string, FieldData>;
+  filledForm: Record<string, FieldValue>;
 }
 
 export function FormPreview({ filledForm }: Props) {
@@ -28,7 +24,7 @@ export function FormPreview({ filledForm }: Props) {
               {key}
               {explanation && <Tooltip explanation={explanation} />}
             </dt>
-            <dd className="text-gray-900 text-lg">{value}</dd>
+            <dd className="text-gray-900 text-lg">{value ?? "N/A"}</dd>
           </div>
         ))}
       </dl>

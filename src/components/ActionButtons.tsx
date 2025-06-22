@@ -8,6 +8,7 @@ interface Props {
   result: string;
   onFill: () => void;
   onDownload: () => void;
+  onDownloadPDF: () => void;
 }
 
 export const ActionButtons: React.FC<Props> = ({
@@ -18,6 +19,7 @@ export const ActionButtons: React.FC<Props> = ({
   onDownload,
   userContext,
   useRealData,
+  onDownloadPDF,
 }) => {
   const isSchemaEmpty = !schema;
   const isUserContextEmpty = !userContext;
@@ -35,12 +37,20 @@ export const ActionButtons: React.FC<Props> = ({
         {loading ? "Filling..." : "Fill Form with AI"}
       </button>
       {result && (
-        <button
-          onClick={onDownload}
-          className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-        >
-          Export as JSON
-        </button>
+        <>
+          <button
+            onClick={onDownload}
+            className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+          >
+            Export as JSON
+          </button>
+          <button
+            onClick={onDownloadPDF}
+            className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition"
+          >
+            Export as PDF
+          </button>
+        </>
       )}
     </div>
   );

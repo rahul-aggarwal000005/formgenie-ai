@@ -4,17 +4,13 @@ import { PageWrapper } from "@/components/PageWrapper";
 import { AIFormFiller } from "@/components/AIFormFiller";
 import { FormPreview } from "@/components/FormPreview";
 import { useState } from "react";
-
-interface FieldData {
-  value: string;
-  explanation: string;
-}
+import { FieldValue } from "@/types";
 
 export default function Home() {
   const [result, setResult] = useState("");
 
   // Parse JSON result if possible
-  let parsedResult: Record<string, FieldData> | null = null;
+  let parsedResult: Record<string, FieldValue> | null = null;
   try {
     parsedResult = result ? JSON.parse(result) : null;
   } catch {
