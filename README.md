@@ -46,6 +46,14 @@ npm run dev
 You’ll need an .env.local with your OpenAI API key copied from OpenRouter key:
 
 ```bash
-OPENAI_API_KEY=sk-xxxxxxxxxxxxxxx
+# OpenAI API key (from OpenRouter or OpenAI)
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Base URL for OpenAI API (usually OpenRouter URL)
 OPENAI_BASE_URL=https://openrouter.ai/api/v1
+
+# NextAuth Google OAuth credentials
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+NEXTAUTH_SECRET=some-random-secret-string-for-session-encryption
 ```

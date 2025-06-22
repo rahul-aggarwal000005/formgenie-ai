@@ -4,6 +4,7 @@ import "./globals.css";
 import { FormProvider } from "./context/FormContext";
 import { Navbar } from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased animated-bg`}
       >
-        <FormProvider>
-          <Navbar />
-          {children}
-          <Toaster />
-        </FormProvider>
+        <SessionProvider>
+          <FormProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+          </FormProvider>
+        </SessionProvider>
       </body>
     </html>
   );

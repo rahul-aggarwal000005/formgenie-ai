@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import clsx from "clsx"; // Optional, for cleaner class names
+import clsx from "clsx";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -23,10 +23,25 @@ import {
   Bars3Icon,
   HomeIcon,
   DocumentTextIcon,
+  UserCircleIcon,
 } from "@heroicons/react/24/outline";
+
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import GoogleSignInButton from "./SignIn";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { data: session, status } = useSession();
   const pathname = usePathname();
 
   const navLinks = [
@@ -35,7 +50,7 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm px-4">
       <div className="w-full mx-auto flex items-center justify-between p-4">
         {/* Logo */}
         <Link href="/" className="text-indigo-700 font-extrabold text-2xl">
@@ -73,6 +88,39 @@ export function Navbar() {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}
+
+              {/* Show SignIn or Avatar Dropdown here */}
+              {status === "loading" ? null : !session ? (
+                <GoogleSignInButton />
+              ) : (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="rounded-full focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                      <UserCircleIcon className="w-8 h-8 text-indigo-600" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuLabel className="font-normal text-muted-foreground">
+                      Signed in as <br />
+                      <span className="font-semibold">
+                        {session.user?.name}
+                      </span>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => {
+                        // Replace with actual navigation to profile page if exists
+                        alert("View Profile clicked!");
+                      }}
+                    >
+                      View Profile
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => signOut()}>
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -116,6 +164,26 @@ export function Navbar() {
                   </div>
                 </Link>
               ))}
+
+              {/* Mobile sign in / user menu */}
+              {!session ? (
+                <GoogleSignInButton />
+              ) : (
+                <div>
+                  <p className="text-gray-700 px-3 py-2">
+                    Hello, {session.user?.name}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      signOut();
+                    }}
+                    className="w-full text-left px-3 py-2 text-red-600 hover:bg-red-100 rounded-md"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
             </nav>
 
             <SheetClose asChild>
