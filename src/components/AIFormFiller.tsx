@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
-import { SchemaInput } from "./SchemaInput";
 import { UserContextInput } from "./UserContextInput";
 import { ActionButtons } from "./ActionButtons";
 import { LoadingOverlay } from "./LoadingOverlay";
+import { SchemaInputWrapper } from "./SchemaInputWrapper";
 
 interface Props {
   result: string;
@@ -34,11 +34,25 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
       }
 
       const data = await res.json();
+
       if (!data.filledForm) {
         throw new Error("AI did not return filled form.");
       }
 
-      setResult(JSON.stringify(data.filledForm, null, 2));
+      let flattenedForm = {};
+
+      if (Array.isArray(data.filledForm.fields)) {
+        flattenedForm = Object.fromEntries(
+          data.filledForm.fields.map((field: Record<string, string>) => [
+            field.label,
+            field.value || "",
+          ])
+        );
+      } else {
+        flattenedForm = data.filledForm;
+      }
+
+      setResult(JSON.stringify(flattenedForm, null, 2));
     } catch (err: unknown) {
       const message =
         err instanceof Error
@@ -69,7 +83,7 @@ export const AIFormFiller: React.FC<Props> = ({ result, setResult }) => {
         Paste your form schema and let AI auto-fill it with realistic values.
       </p>
 
-      <SchemaInput schema={schema} setSchema={setSchema} />
+      <SchemaInputWrapper schema={schema} setSchema={setSchema} />
       <UserContextInput
         userContext={userContext}
         setUserContext={setUserContext}
