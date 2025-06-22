@@ -10,7 +10,7 @@
 
 - [x] Field-level AI explanations
 
-- [ ] Export to JSON and PDF
+- [x] Export to JSON and PDF
 
 - [ ] SaaS tiered pricing model
 
