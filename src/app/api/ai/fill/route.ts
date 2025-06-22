@@ -22,9 +22,23 @@ ${formSchema}
 User's context:
 ${userContext}
 
-Please return ONLY the filled JSON object with appropriate values.
-Do NOT include any explanations, notes, or markdown formatting.
-Return a valid JSON object ONLY.
+Please return a JSON object where each key is a field name and the value is an object containing:
+- "value": the filled value for the field
+- "explanation": a short explanation about the field or why the value is appropriate
+
+Example:
+{
+  "Full Name": {
+    "value": "John Doe",
+    "explanation": "This is the employee's full legal name."
+  },
+  "Email": {
+    "value": "john.doe@example.com",
+    "explanation": "Used for communication and account verification."
+  }
+}
+
+Return ONLY the valid JSON object without markdown or extra text.
 `;
 
   try {

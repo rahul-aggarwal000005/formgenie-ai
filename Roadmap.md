@@ -6,9 +6,9 @@
 
 - [x] AI-generated form filling (OpenAI)
 
-- [ ] Upload form schema via JSON file upload
+- [x] Upload form schema via JSON file upload
 
-- [ ] Field-level AI explanations
+- [x] Field-level AI explanations
 
 - [ ] Export to JSON and PDF
 
