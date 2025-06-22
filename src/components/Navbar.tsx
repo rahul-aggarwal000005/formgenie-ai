@@ -50,7 +50,10 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm px-4">
+    <nav
+      className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm px-4"
+      aria-label="Primary navigation"
+    >
       <div className="w-full mx-auto flex items-center justify-between p-4">
         {/* Logo */}
         <Link href="/" className="text-indigo-700 font-extrabold text-2xl">
@@ -95,7 +98,10 @@ export function Navbar() {
               ) : (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button className="rounded-full focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <button
+                      className="rounded-full focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                      aria-label="User menu"
+                    >
                       <UserCircleIcon className="w-8 h-8 text-indigo-600" />
                     </button>
                   </DropdownMenuTrigger>
@@ -192,7 +198,7 @@ export function Navbar() {
               <button
                 aria-label="Close menu"
                 className="absolute top-4 right-4 p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              ></button>
+              />
             </SheetClose>
           </SheetContent>
         </Sheet>
