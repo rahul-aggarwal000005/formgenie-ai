@@ -38,8 +38,10 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import GoogleSignInButton from "./SignIn";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const { data: session, status } = useSession();
   const pathname = usePathname();
@@ -115,8 +117,7 @@ export function Navbar() {
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={() => {
-                        // Replace with actual navigation to profile page if exists
-                        alert("View Profile clicked!");
+                        router.push("/profile");
                       }}
                     >
                       View Profile
@@ -181,6 +182,14 @@ export function Navbar() {
                   <p className="text-gray-700 px-3 py-2">
                     Hello, {session.user?.name}
                   </p>
+                  <button
+                    className="w-full text-left px-3 py-2 text-white-600 hover:bg-green-100 rounded-md"
+                    onClick={() => {
+                      router.push("/profile");
+                    }}
+                  >
+                    View Profile
+                  </button>
                   <button
                     onClick={() => {
                       setOpen(false);
