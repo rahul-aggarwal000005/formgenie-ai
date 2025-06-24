@@ -1,0 +1,10 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" rx="20" fill="#6366F1" />
+  <circle cx="200" cy="150" r="80" fill="#A5B4FC"/>
+  <circle cx="180" cy="130" r="10" fill="#4338CA"/>
+  <circle cx="220" cy="170" r="10" fill="#4338CA"/>
+  <rect x="180" y="160" width="40" height="10" rx="5" fill="#4338CA"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-family="sans-serif">
+    AI Form
+  </text>
+</svg>

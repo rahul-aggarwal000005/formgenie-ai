@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FormGenie 🧞 – AI Form Assistant for Internal Teams",
+  title: "FormGenie – AI Form Assistant for Internal Teams",
   description:
     "Auto-fill and explain workplace forms with AI-powered assistance. Save time on HR, Finance, and Admin forms.",
   keywords:
@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     creator: "@RahulAg17063121",
     images: ["https://x.com/RahulAg17063121/photo"],
   },
+  icons: "/favicon.ico",
 };
 
 export default function RootLayout({
